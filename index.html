@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>KarjMukti</title>
+<style>body{font-family:system-ui;background:#f0fdf4;margin:0;padding:14px}.card{background:#fff;padding:20px;border-radius:20px;box-shadow:0 4px 20px #0001}.top{background:#15803d;color:#fff;padding:18px;border-radius:16px;text-align:center;margin:14px 0}input{width:100%;padding:14px;margin:8px 0;border:1px solid #ccc;border-radius:12px;box-sizing:border-box;font-size:16px}button{background:#15803d;color:#fff;border:none;padding:14px;width:100%;border-radius:12px;font-size:17px;font-weight:bold} .loan{background:#f0fdf4;padding:12px;border-radius:12px;margin-top:10px;display:flex;justify-content:space-between;align-items:center}</style>
+</head><body>
+<div class="card">
+<h2 style="color:#15803d;margin:0">Karj Mukti 🙏</h2><p style="margin:6px 0 0;color:#666">Loan track karo, mukti pao</p>
+<div class="top"><small>TOTAL KARJ BAKI</small><h1 id="total" style="margin:6px 0">₹0</h1></div>
+<input id="n" placeholder="Karj naam: ex HDFC Loan">
+<input id="a" type="number" placeholder="Amount ₹: ex 50000">
+<button onclick="add()">+ Karj Add Karo</button>
+<div id="list"></div>
+</div>
+<script>
+let k=JSON.parse(localStorage.getItem('km')||'[]');
+function add(){let name=document.getElementById('n').value;let amt=Number(document.getElementById('a').value);if(!name||!amt){alert('Naam aur Amount bharo');return;}k.push({name,amt});localStorage.setItem('km',JSON.stringify(k));document.getElementById('n').value='';document.getElementById('a').value='';show();}
+function show(){let t=0;let h='';k.forEach((x,i)=>{t+=x.amt;h+=`<div class=loan><div><b>${x.name}</b><br><small>₹${x.amt}</small></div><span onclick="del(${i})" style="color:red;font-weight:bold">X</span></div>`});document.getElementById('total').innerText='₹'+t;document.getElementById('list').innerHTML=h;}
+function del(i){k.splice(i,1);localStorage.setItem('km',JSON.stringify(k));show();}
+show();
+</script></body></html>
